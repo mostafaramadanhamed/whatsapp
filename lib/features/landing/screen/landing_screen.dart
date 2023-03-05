@@ -4,14 +4,15 @@ import 'package:whatsapp/utils/constant/app_color.dart';
 import 'package:whatsapp/utils/constant/app_string.dart';
 
 import '../../../common/widgets/custom_button.dart';
+import '../../auth/screens/login_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);
 
 
-  // void navigateToLoginScreen(BuildContext context) {
-  //   Navigator.pushNamed(context, LoginScreen.routeName);
-  // }
+  void navigateToLoginScreen(BuildContext context) {
+    Navigator.pushNamed(context, LoginScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class LandingScreen extends StatelessWidget {
         const Padding(
         padding: EdgeInsets.all(15.0),
         child: Text(
-          'Read our Privacy Policy. Tap "Agree and continue" to accept the Terms of Service.',
+          AppString.landingText,
           style: TextStyle(color: greyColor),
           textAlign: TextAlign.center,
         ),
@@ -47,8 +48,8 @@ class LandingScreen extends StatelessWidget {
     SizedBox(
       width: size.width * 0.75,
       child: CustomButton(
-        text: 'AGREE AND CONTINUE',
-        onPressed: (){},
+        text: AppString.landingButton,
+        onPressed: ()=>navigateToLoginScreen(context),
       ),
     ),
           ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../info.dart';
 import '../utils/constant/app_color.dart';
+import '../widgets/chat_list.dart';
 
 class MobileChatScreen extends StatelessWidget {
   const MobileChatScreen({Key? key}) : super(key: key);

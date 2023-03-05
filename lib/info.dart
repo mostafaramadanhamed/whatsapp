@@ -21,14 +21,14 @@ const info = [
     'https://media.cntraveler.com/photos/60596b398f4452dac88c59f8/16:9/w_3999,h_2249,c_limit/MtFuji-GettyImages-959111140.jpg',
   },
   {
-    'name': 'Dad',
+    'name': 'njn98',
     'message': 'Call me, have some work',
     'time': '12:06 pm',
     'profilePic':
     'https://pbs.twimg.com/profile_images/1419974913260232732/Cy_CUavB.jpg',
   },
   {
-    'name': 'Mom',
+    'name': 'fgh56',
     'message': 'You ate food?',
     'time': '10:00 am',
     'profilePic':

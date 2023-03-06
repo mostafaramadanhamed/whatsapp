@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:whatsapp/utils/constant/app_assets.dart';
 import 'package:whatsapp/utils/constant/app_color.dart';
 import 'package:whatsapp/utils/constant/app_string.dart';
-
 import '../../../common/widgets/custom_button.dart';
 import '../../auth/screens/login_screen.dart';
 

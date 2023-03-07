@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp/common/widgets/error.dart';
 import 'package:whatsapp/features/auth/screens/login_screen.dart';
 import 'package:whatsapp/features/auth/screens/otb_screen.dart';
+import 'package:whatsapp/features/auth/screens/user_info.dart';
 
 Route<dynamic>generateRoute(RouteSettings settings){
   switch(settings.name){
@@ -13,6 +15,10 @@ Route<dynamic>generateRoute(RouteSettings settings){
         final String verificationId=settings.arguments as String;
       return MaterialPageRoute(builder: (context){
         return  OtbScreen(verificationId: verificationId,);
+      });
+      case UserInformationScreen.routeName:
+      return MaterialPageRoute(builder: (context){
+        return  const UserInformationScreen();
       });
     default:
   return MaterialPageRoute(builder: (context){

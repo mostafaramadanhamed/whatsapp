@@ -7,4 +7,5 @@ class AppString{
   static const loginPickCountry='Pick country';
   static const phoneHint='phone number';
   static const loginButtonTitle='Next';
+  static const oTBAppbarTitle='Verifying your number';
 }

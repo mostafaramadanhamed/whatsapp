@@ -1,18 +1,21 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/common/widgets/custom_button.dart';
+import 'package:whatsapp/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp/utils/constant/app_color.dart';
 import 'package:whatsapp/utils/constant/app_string.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const routeName='/login-screen';
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final phoneController=TextEditingController();
   Country ? country;
   @override
@@ -20,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     phoneController.dispose();
   }
-  pickCountry( ){
+ void pickCountry( ){
     showCountryPicker(
       context: context,
       showPhoneCode: true, // optional. Shows phone code before the country name.
@@ -31,6 +34,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
       },
     );
+  }
+
+  void sendPhoneNumber(){
+    String phoneNumber=phoneController.text.trim();
+    if(country != null && phoneNumber.isNotEmpty){
+      ref.read(authControllerProvider).signInWithPhone(context, '+${country!.phoneCode}$phoneNumber');
+    }
+    else{
+      showSnackBar(context: context, content: 'Fill out all fields');
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -63,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       controller:phoneController ,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: AppString.phoneHint
                       ),
                     ),
@@ -74,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: size.height*0.6,),
               SizedBox(
                 width: 90,
-                child:CustomButton(text: AppString.loginButtonTitle, onPressed: (){}),
+                child:CustomButton(text: AppString.loginButtonTitle, onPressed: sendPhoneNumber),
               )
             ],
           ),

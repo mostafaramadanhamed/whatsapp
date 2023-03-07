@@ -39,4 +39,7 @@ class AuthRepository{
        showSnackBar(context: context, content: e.message! );
     }
   }
+  void verifyOTB(){
+
+  }
 }

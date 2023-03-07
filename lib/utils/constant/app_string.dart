@@ -8,4 +8,6 @@ class AppString{
   static const phoneHint='phone number';
   static const loginButtonTitle='Next';
   static const oTBAppbarTitle='Verifying your number';
+  static const oTBMessage='We have sent SMS with a code';
+  static const oTBHintText='- - - - - -';
 }

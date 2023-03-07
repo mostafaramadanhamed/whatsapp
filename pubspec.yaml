@@ -39,6 +39,7 @@ dependencies:
   cloud_firestore: ^4.4.3
   firebase_core: ^2.7.0
   country_picker: ^2.0.19
+  flutter_riverpod: ^2.3.0
 
 dev_dependencies:
   flutter_test:

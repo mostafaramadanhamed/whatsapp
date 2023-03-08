@@ -1,13 +1,77 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class UserInformationScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:whatsapp/common/utils/utils.dart';
+import 'package:whatsapp/utils/constant/app_assets.dart';
+import 'package:whatsapp/utils/constant/app_color.dart';
+import 'package:whatsapp/utils/constant/app_string.dart';
+
+class UserInformationScreen extends StatefulWidget {
   const UserInformationScreen({Key? key}) : super(key: key);
   static const String routeName='/user-info';
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  State<UserInformationScreen> createState() => _UserInformationScreenState();
+}
 
+class _UserInformationScreenState extends State<UserInformationScreen> {
+  File ? image;
+  final TextEditingController nameController=TextEditingController();
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+  }
+  void selectImage()async{
+    image=await pickImageFromGallery(context);
+    setState((){});
+  }
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+        image==null?  const CircleAvatar(
+                     backgroundImage: NetworkImage(AppAssets.oTBProfileImage),
+                    radius: 65,
+                  ):CircleAvatar(
+          backgroundImage: FileImage(image!),
+          radius: 65,
+        ),
+                  Positioned(
+                      bottom: -10,
+                      left: 77,
+                      child: IconButton(
+                          onPressed: (){
+                            selectImage();
+                          },
+                          icon: const Icon(Icons.add_a_photo,)))
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width:size.width*0.85 ,
+                    padding:const EdgeInsets.all(20),
+                    child: TextField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        hintText: AppString.userInfoHintName,
+                      ),
+                    )
+                  ),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.done)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

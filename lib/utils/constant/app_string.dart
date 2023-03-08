@@ -10,4 +10,6 @@ class AppString{
   static const oTBAppbarTitle='Verifying your number';
   static const oTBMessage='We have sent SMS with a code';
   static const oTBHintText='- - - - - -';
+  static const userInfoHintName='Enter your name';
+  static const userInfoHintDesc='Enter your name';
 }

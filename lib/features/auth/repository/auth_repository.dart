@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp/common/repository/firebasre_repository.dart';
 import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/features/auth/screens/otb_screen.dart';
 import 'package:whatsapp/features/auth/screens/user_info.dart';
+import 'package:whatsapp/models/user_model.dart';
 import 'package:whatsapp/utils/constant/app_assets.dart';
 
 final authRepositoryProvider = Provider((ref) =>
@@ -66,12 +68,24 @@ class AuthRepository{
   saveUserDataToFirebase({
     required String name,
     required File?profilePic,
-    required providerRef,
+    required ProviderRef ref,
     required BuildContext context,
 })async{
     try{
       String uid=auth.currentUser!.uid;
       String photoUrl=AppAssets.oTBProfileImage;
+      if(profilePic != null){
+       photoUrl=await ref.read(commonFirebaseStorageRepositoryProvider)
+            .storeFileToFirebase('profilePic/$uid', profilePic);
+      }
+      var user=UserModel(uid: uid, name: name,
+          profilePic: photoUrl,
+          isOnline: true,
+          phoneNumber: auth.currentUser!.phoneNumber!,
+          groupId: [],
+      );
+     await firestore.collection('users').doc(uid).set(user.toMap());
+     Navigator.pushNamedAndRemoveUntil(context, 'newRouteName', (route) => false);
     }
         catch(e){
       showSnackBar(context: context, content: e.toString());

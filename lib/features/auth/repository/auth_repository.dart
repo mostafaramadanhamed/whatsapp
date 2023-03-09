@@ -9,6 +9,7 @@ import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/features/auth/screens/otb_screen.dart';
 import 'package:whatsapp/features/auth/screens/user_info.dart';
 import 'package:whatsapp/models/user_model.dart';
+import 'package:whatsapp/screens/mobile_layout.dart';
 import 'package:whatsapp/utils/constant/app_assets.dart';
 
 final authRepositoryProvider = Provider((ref) =>
@@ -85,7 +86,11 @@ class AuthRepository{
           groupId: [],
       );
      await firestore.collection('users').doc(uid).set(user.toMap());
-     Navigator.pushNamedAndRemoveUntil(context, 'newRouteName', (route) => false);
+     Navigator.pushAndRemoveUntil(
+         context,
+         MaterialPageRoute(builder: (context)=>const MobileLayoutScreen()),
+             (route) => false,
+     );
     }
         catch(e){
       showSnackBar(context: context, content: e.toString());

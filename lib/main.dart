@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp/features/landing/screen/landing_screen.dart';
 import 'package:whatsapp/routet.dart';
 import 'package:whatsapp/screens/mobile_layout.dart';
@@ -18,11 +19,11 @@ void main()async {
   runApp(const ProviderScope(child:  MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Whatsapp',
@@ -33,7 +34,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
       onGenerateRoute: (setting)=>generateRoute(setting),
-      home: LandingScreen(),
+      home: ref.watch(userDataAuthProvider).when(
+          data: data,
+          error: error,
+          loading: loading,
+      ),
     );
   }
 }

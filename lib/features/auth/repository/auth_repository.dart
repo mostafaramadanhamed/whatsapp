@@ -11,6 +11,7 @@ import 'package:whatsapp/features/auth/screens/user_info.dart';
 import 'package:whatsapp/models/user_model.dart';
 import 'package:whatsapp/screens/mobile_layout.dart';
 import 'package:whatsapp/utils/constant/app_assets.dart';
+import 'package:whatsapp/utils/constant/firebase_constant.dart';
 
 final authRepositoryProvider = Provider((ref) =>
     AuthRepository(
@@ -26,6 +27,18 @@ class AuthRepository{
     required this.auth,
     required this.firestore,
   });
+
+  Future<UserModel ? >getCurrentUserData()async{
+    var userData= await firestore.
+    collection(FirebaseConstant.userCollection)
+        .doc(auth.currentUser?.uid).
+    get();
+    UserModel ? user;
+    if(userData.data() != null){
+      user=UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
 
   void signInWithPhone(String phoneNumber,BuildContext context)async{
     try{
@@ -77,7 +90,7 @@ class AuthRepository{
       String photoUrl=AppAssets.oTBProfileImage;
       if(profilePic != null){
        photoUrl=await ref.read(commonFirebaseStorageRepositoryProvider)
-            .storeFileToFirebase('profilePic/$uid', profilePic);
+            .storeFileToFirebase('${FirebaseConstant.profilePic}/$uid', profilePic);
       }
       var user=UserModel(uid: uid, name: name,
           profilePic: photoUrl,
@@ -85,7 +98,7 @@ class AuthRepository{
           phoneNumber: auth.currentUser!.phoneNumber!,
           groupId: [],
       );
-     await firestore.collection('users').doc(uid).set(user.toMap());
+     await firestore.collection(FirebaseConstant.userCollection).doc(uid).set(user.toMap());
      Navigator.pushAndRemoveUntil(
          context,
          MaterialPageRoute(builder: (context)=>const MobileLayoutScreen()),

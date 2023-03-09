@@ -6,10 +6,7 @@ import 'package:whatsapp/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp/features/landing/screen/landing_screen.dart';
 import 'package:whatsapp/routet.dart';
 import 'package:whatsapp/screens/mobile_layout.dart';
-import 'package:whatsapp/screens/web_layout.dart';
 import 'package:whatsapp/utils/constant/app_color.dart';
-import 'package:whatsapp/utils/layout/responsive_layout.dart';
-
 import 'common/widgets/loader.dart';
 import 'firebase_options.dart';
 

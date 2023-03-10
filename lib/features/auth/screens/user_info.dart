@@ -57,13 +57,17 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
           radius: 65,
         ),
                   Positioned(
-                      bottom: -10,
+                      bottom: 0,
                       left: 77,
-                      child: IconButton(
-                          onPressed: (){
-                            selectImage();
-                          },
-                          icon: const Icon(Icons.add_a_photo,)))
+                      child: CircleAvatar(
+                        backgroundColor: tabColor,
+                        child: IconButton(
+                            onPressed: (){
+                              selectImage();
+                            },
+                            icon: const Icon(Icons.add_a_photo,color: textColor,),
+                        ),
+                      ),),
                 ],
               ),
               Row(
@@ -78,8 +82,12 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                       ),
                     )
                   ),
-                  IconButton(onPressed: storeUserData,
-                   icon: Icon(Icons.done)),
+                  CircleAvatar(
+                    backgroundColor: mobileChatBoxColor,
+                    child: IconButton(
+                        onPressed: storeUserData,
+                     icon: Icon(Icons.done)),
+                  ),
                 ],
               ),
             ],

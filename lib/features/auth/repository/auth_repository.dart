@@ -110,4 +110,8 @@ class AuthRepository{
         }
   }
 
+ Stream<UserModel> userData(String userId){
+    return firestore.collection(FirebaseConstant.userCollection).doc(userId)
+        .snapshots().map((event) => UserModel.fromMap(event.data()!));
+  }
 }

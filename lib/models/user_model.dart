@@ -16,8 +16,8 @@ class UserModel{
 });
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
       'name': name,
+      'uid': uid,
       'profilePic': profilePic,
       'isOnline': isOnline,
       'phoneNumber': phoneNumber,
@@ -27,12 +27,12 @@ class UserModel{
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: map['uid'] as String,
-      name: map['name'] as String,
-      profilePic: map['profilePic'] as String,
-      isOnline: map['isOnline'] as bool,
-      phoneNumber: map['phoneNumber'] as String,
-      groupId: map['groupId'] as List<String>,
+      name: map['name'] ?? '',
+      uid: map['uid'] ?? '',
+      profilePic: map['profilePic'] ?? '',
+      isOnline: map['isOnline'] ?? false,
+      phoneNumber: map['phoneNumber'] ?? '',
+      groupId: List<String>.from(map['groupId']),
     );
   }
 }

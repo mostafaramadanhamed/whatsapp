@@ -5,15 +5,16 @@ import '../utils/constant/app_color.dart';
 import '../widgets/chat_list.dart';
 
 class MobileChatScreen extends StatelessWidget {
-  const MobileChatScreen({Key? key}) : super(key: key);
-
+  static const String routeName='/mobile-chat';
+  const MobileChatScreen({Key? key, required this.name, required this.uid}) : super(key: key);
+final String name,uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarColor,
         title: Text(
-          info[0]['name'].toString(),
+          name,
         ),
         centerTitle: false,
         actions: [

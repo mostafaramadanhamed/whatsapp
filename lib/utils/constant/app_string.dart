@@ -12,4 +12,5 @@ class AppString{
   static const oTBHintText='- - - - - -';
   static const userInfoHintName='Enter your name';
   static const contactScreenAppbarTitle='Select contact';
+  static const messageNumberNotFound='This number dose not exist in this app ';
 }

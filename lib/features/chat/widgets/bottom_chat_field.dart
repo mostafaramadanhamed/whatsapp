@@ -1,24 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../utils/constant/app_color.dart';
+import '../controller/chat_controller.dart';
 
-class BottomChatField extends StatefulWidget {
-  const BottomChatField({
-    Key? key,
+class BottomChatField extends ConsumerStatefulWidget {
+  final String receiverUserId;
+  const BottomChatField({required this.receiverUserId,
+  Key? key,
   }) : super(key: key);
 
   @override
-  State<BottomChatField> createState() => _BottomChatFieldState();
+  ConsumerState<BottomChatField> createState() => _BottomChatFieldState();
 }
 
-class _BottomChatFieldState extends State<BottomChatField> {
+class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   bool isShowSendButton=false;
+  final TextEditingController _messageController=TextEditingController();
+  void sendTextMessage(){
+    if(isShowSendButton){
+      ref.read(chatControllerProvider)
+          .sendTextMessage(context, _messageController.text,widget.receiverUserId ,);
+      _messageController.clear();
+      // todo لو مشتغلش حط setState((){});
+      print('object');
+    }
+  }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _messageController.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: TextFormField(
+            controller: _messageController,
             onChanged: (val){
               if(val.isNotEmpty){
                 setState((){
@@ -62,7 +81,7 @@ class _BottomChatFieldState extends State<BottomChatField> {
                   ],
                 ),
               ),
-              hintText: 'Type a message!',
+              hintText: 'Message',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),
                 borderSide: const BorderSide(
@@ -81,11 +100,14 @@ class _BottomChatFieldState extends State<BottomChatField> {
             right: 2,
           ),
           child: CircleAvatar(
-            backgroundColor: Color(0xFF128C7E),
+            backgroundColor: const Color(0xFF128C7E),
             radius: 25,
-            child: Icon(
-             isShowSendButton ? Icons.send:Icons.mic,
-              color: whiteColor,
+            child: InkWell(
+              onTap:  sendTextMessage,
+              child: Icon(
+               isShowSendButton ? Icons.send:Icons.mic,
+                color: whiteColor,
+              ),
             ),
           ),
         )

@@ -1,19 +1,19 @@
-class UserModel{
-  final String uid;
+class UserModel {
   final String name;
+  final String uid;
   final String profilePic;
   final bool isOnline;
   final String phoneNumber;
-  final List<String>groupId;
-
+  final List<String> groupId;
   UserModel({
-    required this.uid,
     required this.name,
+    required this.uid,
     required this.profilePic,
     required this.isOnline,
     required this.phoneNumber,
     required this.groupId,
-});
+  });
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,

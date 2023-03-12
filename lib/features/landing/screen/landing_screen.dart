@@ -21,7 +21,9 @@ class LandingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 50,),
+            // todo replace 50 with 0
+            // todo make screen responsive
+            const SizedBox(height: 0,),
             Text(AppString.landingWelcome,style: Theme.of(context).textTheme.headline4!.copyWith(
               color: Colors.white,
             ),),

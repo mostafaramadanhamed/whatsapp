@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp/common/enum/message_enum.dart';
 import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/models/chat_contact.dart';
 import 'package:whatsapp/models/user_model.dart';
@@ -56,8 +57,9 @@ void  _saveMessageToMessageSubCollection(
    required String messageId,
    required String userName,
    required String receiverUserName,
+    required MessageEnum messageType,
 })async{
-
+    
   }
 
   void sendTextMessage({

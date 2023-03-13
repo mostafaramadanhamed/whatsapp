@@ -30,7 +30,7 @@ class AuthRepository{
 
   Future<UserModel ? >getCurrentUserData()async{
     var userData= await firestore.
-    collection(FirebaseConstant.userCollection)
+    collection(userCollection)
         .doc(auth.currentUser?.uid).
     get();
     UserModel ? user;
@@ -89,7 +89,7 @@ class AuthRepository{
       String photoUrl=AppAssets.oTBProfileImage;
       if(profilePic != null){
        photoUrl=await ref.read(commonFirebaseStorageRepositoryProvider)
-            .storeFileToFirebase('${FirebaseConstant.profilePic}/$uid', profilePic);
+            .storeFileToFirebase('$profilePic/$uid', profilePic);
       }
       var user=UserModel(uid: uid, name: name,
           profilePic: photoUrl,
@@ -97,7 +97,7 @@ class AuthRepository{
           phoneNumber: auth.currentUser!.phoneNumber!,
           groupId: [],
       );
-     await firestore.collection(FirebaseConstant.userCollection).doc(uid).set(user.toMap());
+     await firestore.collection(userCollection).doc(uid).set(user.toMap());
      Navigator.pushAndRemoveUntil(
          context,
          MaterialPageRoute(builder: (context)=>const MobileLayoutScreen()),
@@ -110,7 +110,7 @@ class AuthRepository{
   }
 
  Stream<UserModel> userData(String userId){
-    return firestore.collection(FirebaseConstant.userCollection).doc(userId)
+    return firestore.collection(userCollection).doc(userId)
         .snapshots().map((event) => UserModel.fromMap(event.data()!));
   }
 }

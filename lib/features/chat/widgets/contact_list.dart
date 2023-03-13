@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:whatsapp/common/widgets/loader.dart';
 import 'package:whatsapp/features/chat/controller/chat_controller.dart';
 import 'package:whatsapp/models/chat_contact.dart';
-import '../info.dart';
-import '../features/chat/screens/mobile_chat.dart';
-import '../utils/constant/app_color.dart';
+import '../../../info.dart';
+import '../screens/mobile_chat.dart';
+import '../../../utils/constant/app_color.dart';
 
 class ContactsList extends ConsumerWidget {
   const ContactsList({Key? key}) : super(key: key);

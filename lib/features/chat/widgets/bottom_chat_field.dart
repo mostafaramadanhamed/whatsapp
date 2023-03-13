@@ -21,7 +21,6 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
       ref.read(chatControllerProvider)
           .sendTextMessage(context, _messageController.text,widget.receiverUserId ,);
       _messageController.clear();
-      // todo لو مشتغلش حط setState((){});
       print('object');
     }
   }
@@ -102,7 +101,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           child: CircleAvatar(
             backgroundColor: const Color(0xFF128C7E),
             radius: 25,
-            child: InkWell(
+            child: GestureDetector(
               onTap:  sendTextMessage,
               child: Icon(
                isShowSendButton ? Icons.send:Icons.mic,

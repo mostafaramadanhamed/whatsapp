@@ -24,16 +24,16 @@ class ChatRepository {
 
   Stream<List<ChatContact>> getChatContact() {
     return firestore
-        .collection(FirebaseConstant.userCollection)
+        .collection(userCollection)
         .doc(auth.currentUser!.uid)
-        .collection(FirebaseConstant.chatCollection)
+        .collection(chatCollection)
         .snapshots()
         .asyncMap((event) async {
       List<ChatContact> contacts = [];
       for (var documents in event.docs) {
         var chatContact = ChatContact.fromMap(documents.data());
         var userData = await firestore
-            .collection(FirebaseConstant.userCollection)
+            .collection(userCollection)
             .doc(chatContact.contactId)
             .get();
         var user = UserModel.fromMap(userData.data()!);
@@ -67,9 +67,9 @@ class ChatRepository {
       lastMessage: text,
     );
     await firestore
-        .collection(FirebaseConstant.userCollection)
+        .collection(userCollection)
         .doc(receiverUserId)
-        .collection(FirebaseConstant.chatCollection)
+        .collection(chatCollection)
         .doc(auth.currentUser!.uid)
         .set(receiverChatContact.toMap());
     var senderChatContact = ChatContact(
@@ -80,9 +80,9 @@ class ChatRepository {
       lastMessage: text,
     );
     await firestore
-        .collection(FirebaseConstant.userCollection)
+        .collection(userCollection)
         .doc(auth.currentUser!.uid)
-        .collection(FirebaseConstant.chatCollection)
+        .collection(chatCollection)
         .doc(receiverUserId)
         .set(senderChatContact.toMap());
   }
@@ -98,27 +98,26 @@ class ChatRepository {
   }) async {
     final message = Message(
       senderId: auth.currentUser!.uid,
-      receiverId: receiverUserId,
       text: text,
       type: messageType,
       timeSent: timeSent,
       messageId: messageId,
-      isSeen: false,
+      isSeen: false, recieverid:receiverUserId,
     );
     await firestore
-        .collection(FirebaseConstant.userCollection)
+        .collection(userCollection)
         .doc(auth.currentUser!.uid)
-        .collection(FirebaseConstant.chatCollection)
+        .collection(chatCollection)
         .doc(receiverUserId)
-        .collection(FirebaseConstant.messageCollection)
+        .collection(messageCollection)
         .doc(messageId)
         .set(message.toMap());
     await firestore
-        .collection(FirebaseConstant.userCollection)
+        .collection(userCollection)
         .doc(receiverUserId)
-        .collection(FirebaseConstant.chatCollection)
+        .collection(chatCollection)
         .doc(auth.currentUser!.uid)
-        .collection(FirebaseConstant.messageCollection)
+        .collection(messageCollection)
         .doc(messageId)
         .set(message.toMap());
   }
@@ -132,7 +131,7 @@ class ChatRepository {
       var timeSent = DateTime.now();
       UserModel? receiverUserData;
       var userDataMap = await firestore
-          .collection(FirebaseConstant.userCollection)
+          .collection(userCollection)
           .doc(receiverUserId)
           .get();
       receiverUserData = UserModel.fromMap(userDataMap.data()!);

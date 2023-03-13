@@ -1,6 +1,4 @@
-class FirebaseConstant {
-  static const profilePic='profilePic';
-  static const userCollection='users';
-  static const chatCollection='chats';
-  static const messageCollection='messages';
-}
+ const profilePic='profilePic';
+ const userCollection='users';
+ const chatCollection='chats';
+ const messageCollection='messages';

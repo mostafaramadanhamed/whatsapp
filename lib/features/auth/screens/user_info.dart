@@ -58,7 +58,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
         ),
                   Positioned(
                       bottom: 0,
-                      right: -10,
+                      right: 0,
                       child: CircleAvatar(
                         backgroundColor: tabColor,
                         child: IconButton(
@@ -84,6 +84,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                   ),
                   CircleAvatar(
                     backgroundColor: tabColor,
+                    foregroundColor: Colors.white,
                     child: IconButton(
                         onPressed: storeUserData,
                      icon: Icon(Icons.done)),

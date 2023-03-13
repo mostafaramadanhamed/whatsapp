@@ -32,9 +32,9 @@ class SelectContactRepository{
   }
   void selectContact(Contact selectedContact,BuildContext context)async{
     try{
-      var userCollection=await firestore.collection(FirebaseConstant.userCollection).get();
+      var userCollections=await firestore.collection(userCollection).get();
       bool isFound=false;
-      for(var document in userCollection.docs){
+      for(var document in userCollections.docs){
         var userData=UserModel.fromMap(document.data());
         print(selectedContact.phones[0].number);
         String selectedPhoneNum=selectedContact.phones[0].number.replaceAll(' ', '',);

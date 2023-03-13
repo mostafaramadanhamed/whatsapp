@@ -5,12 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 import 'package:whatsapp/common/enum/message_enum.dart';
 import 'package:whatsapp/common/utils/utils.dart';
+import 'package:whatsapp/info.dart';
 import 'package:whatsapp/models/chat_contact.dart';
 import 'package:whatsapp/models/massege_model.dart';
 import 'package:whatsapp/models/user_model.dart';
 import 'package:whatsapp/utils/constant/firebase_constant.dart';
 
-final chatRepositoryProvider=Provider((ref) => ChatRepository(
+final chatRepositoryProvider = Provider((ref) => ChatRepository(
     firestore: FirebaseFirestore.instance, auth: FirebaseAuth.instance));
 
 class ChatRepository {
@@ -21,9 +22,39 @@ class ChatRepository {
     required this.auth,
   });
 
+  Stream<List<ChatContact>> getChatContact() {
+    return firestore
+        .collection(FirebaseConstant.userCollection)
+        .doc(auth.currentUser!.uid)
+        .collection(FirebaseConstant.chatCollection)
+        .snapshots()
+        .asyncMap((event) async {
+      List<ChatContact> contacts = [];
+      for (var documents in event.docs) {
+        var chatContact = ChatContact.fromMap(documents.data());
+        var userData = await firestore
+            .collection(FirebaseConstant.userCollection)
+            .doc(chatContact.contactId)
+            .get();
+        var user = UserModel.fromMap(userData.data()!);
+
+        contacts.add(
+          ChatContact(
+            name: user.name,
+            profilePic: user.profilePic,
+            contactId: chatContact.contactId,
+            timeSent: chatContact.timeSent,
+            lastMessage: chatContact.lastMessage,
+          ),
+        );
+      }
+      return contacts;
+    });
+  }
+
   void _saveDataToContactsSubCollection(
     UserModel senderUserData,
-    UserModel receiverUserData,
+    UserModel? receiverUserData,
     String text,
     DateTime timeSent,
     String receiverUserId,
@@ -42,7 +73,7 @@ class ChatRepository {
         .doc(auth.currentUser!.uid)
         .set(receiverChatContact.toMap());
     var senderChatContact = ChatContact(
-      name: receiverUserData.name,
+      name: receiverUserData!.name,
       profilePic: receiverUserData.profilePic,
       contactId: receiverUserData.uid,
       timeSent: timeSent,
@@ -73,7 +104,6 @@ class ChatRepository {
       timeSent: timeSent,
       messageId: messageId,
       isSeen: false,
-      repliedMessageType: messageType,
     );
     await firestore
         .collection(FirebaseConstant.userCollection)
@@ -100,7 +130,7 @@ class ChatRepository {
       required UserModel senderUser}) async {
     try {
       var timeSent = DateTime.now();
-      UserModel receiverUserData;
+      UserModel? receiverUserData;
       var userDataMap = await firestore
           .collection(FirebaseConstant.userCollection)
           .doc(receiverUserId)

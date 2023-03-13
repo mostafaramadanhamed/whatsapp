@@ -70,8 +70,7 @@ class AuthRepository{
         smsCode: userOTB,
       );
       await auth.signInWithCredential(credential);
-      Navigator.pushNamedAndRemoveUntil(
-          context,
+      Navigator.of(context).pushNamedAndRemoveUntil(
           UserInformationScreen.routeName,
               (route) => false);
     }

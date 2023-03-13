@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp/features/chat/repository/chat_repository.dart';
-import 'package:whatsapp/models/user_model.dart';
+import 'package:whatsapp/models/chat_contact.dart';
 final chatControllerProvider=Provider((ref){
   final  chatRepository=ref.watch(chatRepositoryProvider);
   return ChatController(chatRepository: chatRepository, ref: ref);
@@ -16,6 +16,9 @@ class ChatController {
     required this.ref,
   });
 
+  Stream<List<ChatContact>>chatContact(){
+    return chatRepository.getChatContact();
+  }
   void sendTextMessage(
     BuildContext context,
     String text,
@@ -29,4 +32,5 @@ class ChatController {
       ),
     );
   }
+
 }

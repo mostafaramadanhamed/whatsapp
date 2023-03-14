@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:whatsapp/common/widgets/loader.dart';
 import 'package:whatsapp/features/chat/controller/chat_controller.dart';
 import 'package:whatsapp/models/chat_contact.dart';
-import '../../../info.dart';
 import '../screens/mobile_chat.dart';
 import '../../../utils/constant/app_color.dart';
 
@@ -21,6 +21,7 @@ class ContactsList extends ConsumerWidget {
           if(snapshot.connectionState==ConnectionState.waiting){
             return const Loader();
           }
+
           return ListView.builder(
             shrinkWrap: true,
             itemCount: snapshot.data!.length,
@@ -58,7 +59,7 @@ class ContactsList extends ConsumerWidget {
                           radius: 30,
                         ),
                         trailing: Text(
-                          DateFormat.Hm().format(chatContactData.timeSent),
+                          DateFormat('hh:mm a').format(chatContactData.timeSent),
                           style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 13,

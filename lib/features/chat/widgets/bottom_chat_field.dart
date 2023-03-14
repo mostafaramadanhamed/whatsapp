@@ -18,10 +18,12 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   final TextEditingController _messageController=TextEditingController();
   void sendTextMessage(){
     if(isShowSendButton){
+      print("${_messageController.text} in chat screen before");
       ref.read(chatControllerProvider)
           .sendTextMessage(context, _messageController.text,widget.receiverUserId ,);
       _messageController.clear();
-      print('object');
+      print("${_messageController.text} in chat screen after");
+      print("${widget.receiverUserId} in chat screen");
     }
   }
 

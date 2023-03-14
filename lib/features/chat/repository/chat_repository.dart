@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +53,29 @@ class ChatRepository {
       return contacts;
     });
   }
-
+  Stream<List<Message>> getChatStream(String recieverUserId) {
+    return firestore
+        .collection(userCollection)
+        .doc(auth.currentUser!.uid)
+        .collection(chatCollection)
+        .doc(recieverUserId)
+    .collection(messageCollection)
+    .orderBy(orderBy)
+        .snapshots()
+        .asyncMap((event) async {
+      List<Message> message = [];
+      for (var documents in event.docs) {
+        var messageContact = Message.fromMap(documents.data());
+        message.add(
+          Message.fromMap(documents.data()),
+        );
+      }
+      return message;
+    });
+  }
   void _saveDataToContactsSubCollection(
     UserModel senderUserData,
-    UserModel? receiverUserData,
+    UserModel receiverUserData,
     String text,
     DateTime timeSent,
     String receiverUserId,
@@ -73,7 +94,7 @@ class ChatRepository {
         .doc(auth.currentUser!.uid)
         .set(receiverChatContact.toMap());
     var senderChatContact = ChatContact(
-      name: receiverUserData!.name,
+      name: receiverUserData.name,
       profilePic: receiverUserData.profilePic,
       contactId: receiverUserData.uid,
       timeSent: timeSent,
@@ -85,6 +106,9 @@ class ChatRepository {
         .collection(chatCollection)
         .doc(receiverUserId)
         .set(senderChatContact.toMap());
+    print(userCollection);
+    print(messageCollection);
+    print(chatCollection);
   }
 
   void _saveMessageToMessageSubCollection({
@@ -126,10 +150,11 @@ class ChatRepository {
       {required BuildContext context,
       required String text,
       required String receiverUserId,
-      required UserModel senderUser}) async {
+      required UserModel senderUser,
+      }) async {
     try {
       var timeSent = DateTime.now();
-      UserModel? receiverUserData;
+      UserModel receiverUserData;
       var userDataMap = await firestore
           .collection(userCollection)
           .doc(receiverUserId)
@@ -153,6 +178,10 @@ class ChatRepository {
         receiverUserName: receiverUserData.name,
         messageType: MessageEnum.text,
       );
+      print("$text in chat repository");
+      print("$receiverUserId in chat repository");
+      print("$senderUser in chat repository");
+      log(senderUser.toString());
     } catch (ex) {
       showSnackBar(context: context, content: ex.toString());
     }

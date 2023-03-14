@@ -23,7 +23,7 @@ class LandingScreen extends StatelessWidget {
           children: [
             // todo replace 50 with 0
             // todo make screen responsive
-            const SizedBox(height: 0,),
+             SizedBox(height: size.height/13,),
             Text(AppString.landingWelcome,style: Theme.of(context).textTheme.headline4!.copyWith(
               color: Colors.white,
             ),),
@@ -31,8 +31,8 @@ class LandingScreen extends StatelessWidget {
               height: size.height/9, ),
             Image.asset(
               AppAssets.landingCenterImage,
-              height: 340,
-              width: 340,
+              height: size.height/2.4,
+              width: size.width*0.85,
               color: tabColor,
             ),
             SizedBox(

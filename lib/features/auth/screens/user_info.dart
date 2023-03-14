@@ -87,7 +87,7 @@ class _UserInformationScreenState extends ConsumerState<UserInformationScreen> {
                     foregroundColor: Colors.white,
                     child: IconButton(
                         onPressed: storeUserData,
-                     icon: Icon(Icons.done)),
+                     icon: const Icon(Icons.done)),
                   ),
                 ],
               ),

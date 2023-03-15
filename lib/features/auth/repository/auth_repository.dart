@@ -98,7 +98,7 @@ class AuthRepository{
           groupId: [],
       );
      await firestore.collection(userCollection).doc(uid).set(user.toMap());
-     Navigator.pushAndRemoveUntil(
+        Navigator.pushAndRemoveUntil(
          context,
          MaterialPageRoute(builder: (context)=>const MobileLayoutScreen()),
              (route) => false,
@@ -113,4 +113,9 @@ class AuthRepository{
     return firestore.collection(userCollection).doc(userId)
         .snapshots().map((event) => UserModel.fromMap(event.data()!));
   }
+  void setUserState(bool isOnline)async{
+    await firestore.collection(userCollection).doc(auth.currentUser!.uid).update({
+      'isOnline':isOnline,
+    });
+    }
 }

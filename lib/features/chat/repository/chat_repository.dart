@@ -65,7 +65,6 @@ class ChatRepository {
         .asyncMap((event) async {
       List<Message> message = [];
       for (var documents in event.docs) {
-        var messageContact = Message.fromMap(documents.data());
         message.add(
           Message.fromMap(documents.data()),
         );

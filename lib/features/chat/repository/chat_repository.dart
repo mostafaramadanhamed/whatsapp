@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -185,4 +186,18 @@ class ChatRepository {
       showSnackBar(context: context, content: ex.toString());
     }
   }
+  void sendFileMessage({
+  required BuildContext context,
+    required File file,
+    required String receiverUserId,
+    required UserModel senderUserData,
+    required ProviderRef ref,
+})async{
+    try{
+
+    }
+catch(ex){
+      showSnackBar(context: context, content: ex.toString());
+}
+}
 }

@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:whatsapp/common/widgets/loader.dart';
 import 'package:whatsapp/features/chat/controller/chat_controller.dart';
 import 'package:whatsapp/models/massege_model.dart';
-import 'package:whatsapp/widgets/sender_message_card.dart';
-import '../../../widgets/my_message_card.dart';
+import 'package:whatsapp/features/chat/widgets/sender_message_card.dart';
+import 'my_message_card.dart';
 
 
 class ChatList extends ConsumerStatefulWidget {

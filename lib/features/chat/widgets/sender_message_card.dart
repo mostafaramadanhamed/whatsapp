@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/constant/app_color.dart';
+import '../../../utils/constant/app_color.dart';
 
 class SenderMessageCard extends StatelessWidget {
   const SenderMessageCard({

@@ -45,7 +45,7 @@ class MyMessageCard extends StatelessWidget {
                 child:DisplayTextImageGIF(message: message, type: type),
               ),
               Positioned(
-                bottom: 1,
+                bottom: 2,
                 right: 10,
                 child:type==MessageEnum.text?Row(
                   children: [

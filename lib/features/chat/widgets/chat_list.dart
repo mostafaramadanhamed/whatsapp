@@ -38,6 +38,7 @@ class _ChatListState extends ConsumerState<ChatList> {
           messageController.jumpTo(messageController.position.maxScrollExtent);
         });
         return ListView.builder(
+          physics: const BouncingScrollPhysics(),
           controller: messageController,
           itemCount: snapshot.data!.length,
           itemBuilder: (context, index) {
@@ -53,6 +54,7 @@ class _ChatListState extends ConsumerState<ChatList> {
             return SenderMessageCard(
               message: messageData.text,
               date: timeSent,
+              type: messageData.type,
             );
           },
         );

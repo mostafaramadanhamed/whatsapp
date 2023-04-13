@@ -99,7 +99,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                       onPressed:selectImage,
                       icon:const Icon(Icons.camera_alt_rounded, color: Colors.grey,),
                     ),  IconButton(
-                      onPressed: () {  },
+                      onPressed: selectVideo,
                       icon:const Icon(Icons.attach_file_rounded, color: Colors.grey,),
                     ),
                   ],

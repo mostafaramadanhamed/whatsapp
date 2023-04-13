@@ -11,6 +11,7 @@ class VideoPlayerItem extends StatefulWidget {
 
 class _VideoPlayerItemState extends State<VideoPlayerItem> {
   late CachedVideoPlayerController videoPlayerController;
+  bool isPlay=false;
   @override
   void initState() {
     super.initState();
@@ -19,13 +20,29 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
     });
   }
   @override
+  void dispose() {
+    super.dispose();
+    videoPlayerController.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 16/9,
     child:Stack(
       children: [
         CachedVideoPlayer(videoPlayerController),
-        IconButton(onPressed: (){}, icon: Icon(Icons.play_arrow_rounded))
+        Align(
+          alignment: Alignment.center,
+            child: IconButton(onPressed: (){
+              if(isPlay){
+                videoPlayerController.pause();
+              }else{
+                videoPlayerController.play();
+              }
+              setState((){
+                isPlay =! isPlay;
+              });
+            }, icon: Icon(isPlay?Icons.pause_circle:Icons.play_circle)))
 
       ],
     ) ,

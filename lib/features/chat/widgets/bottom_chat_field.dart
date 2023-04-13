@@ -44,6 +44,12 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
       sendFileMessage(image, MessageEnum.image,);
     }
   }
+  void selectVideo()async{
+    File? video=await pickVideoFromGallery(context);
+    if(video!=null){
+      sendFileMessage(video, MessageEnum.video,);
+    }
+  }
   @override
   void dispose() {
     super.dispose();

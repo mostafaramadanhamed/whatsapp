@@ -17,6 +17,7 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
     super.initState();
     videoPlayerController=CachedVideoPlayerController.network(widget.videoUrl)..initialize().then((value){
       videoPlayerController.setVolume(1);
+      videoPlayerController.setLooping(true);
     });
   }
   @override

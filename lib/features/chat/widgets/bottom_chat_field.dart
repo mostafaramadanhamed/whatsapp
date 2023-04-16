@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/common/enum/message_enum.dart';
@@ -27,12 +25,15 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   final TextEditingController _messageController=TextEditingController();
   void sendTextMessage(){
     if(isShowSendButton){
-      print("${_messageController.text} in chat screen before");
-      ref.read(chatControllerProvider)
-          .sendTextMessage(context, _messageController.text,widget.receiverUserId ,);
-      _messageController.clear();
-      print("${_messageController.text} in chat screen after");
-      print("${widget.receiverUserId} in chat screen");
+
+      if(_messageController.text.isNotEmpty) {
+        ref.read(chatControllerProvider).sendTextMessage(
+              context,
+              _messageController.text,
+              widget.receiverUserId,
+            );
+        _messageController.clear();
+      }
     }
   }
 
@@ -176,7 +177,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
         isShowEmojiContainer ? SizedBox(height:MediaQuery.of(context).size.height/2.9,child: EmojiPicker(

@@ -59,6 +59,28 @@ class ChatController {
       print(e);
     }
   }
+  void sendGIFMessage(
+    BuildContext context,
+    String gifUrl,
+    String receiverUserId,
+  ) {
+    int gifUrlPartIndex=gifUrl.lastIndexOf('-')+1;
+    String gifUrlPart=gifUrl.substring(gifUrlPartIndex);
+        String newGifUrl='https://i.giphy.com/media/$gifUrlPart/200.gif';
+      ref.read(userDataAuthProvider).whenData((UserModel? value) {
+        log('$value value');
+        return chatRepository.sendGIFMessage(context: context, gifUrl: newGifUrl, receiverUserId: receiverUserId,
+            senderUser: value ??
+            UserModel(
+                name: 'null',
+                uid: 'null',
+                profilePic: AppAssets.oTBProfileImage,
+                isOnline: false,
+                phoneNumber: 'null',
+                groupId: []),);
+      });
+
+  }
 
   void sendFileMessage(
     BuildContext context,

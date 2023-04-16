@@ -181,10 +181,40 @@ class ChatRepository {
         receiverUserName: receiverUserData.name,
         messageType: MessageEnum.text,
       );
-      print("$text in chat repository");
-      print("$receiverUserId in chat repository");
-      print("$senderUser in chat repository");
-      log(senderUser.toString());
+    } catch (ex) {
+      showSnackBar(context: context, content: ex.toString());
+    }
+  }
+  void sendGIFMessage({
+    required BuildContext context,
+    required String gifUrl,
+    required String receiverUserId,
+    required UserModel senderUser,
+  }) async {
+    try {
+      var timeSent = DateTime.now();
+      UserModel receiverUserData;
+      var userDataMap =
+          await firestore.collection(userCollection).doc(receiverUserId).get();
+      receiverUserData = UserModel.fromMap(userDataMap.data()!);
+
+      var messageId = const Uuid().v1();
+      _saveDataToContactsSubCollection(
+        senderUser,
+        receiverUserData,
+        'GIF',
+        timeSent,
+        receiverUserId,
+      );
+      _saveMessageToMessageSubCollection(
+        text: gifUrl,
+        timeSent: timeSent,
+        receiverUserId: receiverUserId,
+        messageId: messageId,
+        userName: senderUser.name,
+        receiverUserName: receiverUserData.name,
+        messageType: MessageEnum.gif,
+      );
     } catch (ex) {
       showSnackBar(context: context, content: ex.toString());
     }

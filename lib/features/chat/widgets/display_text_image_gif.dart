@@ -25,7 +25,17 @@ class DisplayTextImageGIF extends StatelessWidget {
               bottomLeft: Radius.circular(16),
             )
         ),child: VideoPlayerItem(videoUrl: message)):
-    Container(
+        type==MessageEnum.gif?Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight:Radius.circular(16),
+                  topLeft:Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                )
+            ),
+            child: CachedNetworkImage(imageUrl: message),)
+   : Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(

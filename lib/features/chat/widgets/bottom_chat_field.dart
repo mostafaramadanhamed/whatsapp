@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import 'package:enough_giphy_flutter/enough_giphy_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/common/enum/message_enum.dart';
@@ -42,6 +43,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     ref.read(chatControllerProvider).sendFileMessage(context, file,
       widget.receiverUserId, messageEnum,);
   }
+
   void selectImage()async{
     File? image=await pickImageFromGallery(context);
     if(image!=null){
@@ -52,6 +54,11 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     File? video=await pickVideoFromGallery(context);
     if(video!=null){
       sendFileMessage(video, MessageEnum.video,);
+    }
+  }  void selectGIF()async{
+    final gif=await pickedGIF(context);
+    if(gif!=null){
+      ref.read(chatControllerProvider).sendGIFMessage(context, gif.url, widget.receiverUserId);
     }
   }
   void hideEmojiContainer(){
@@ -119,7 +126,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                             onPressed: toggleBetweenKeyboardAndEmoji,
                              icon: Icon(isShowEmojiIcon?Icons.emoji_emotions:Icons.keyboard, color: Colors.grey,),
                         ), IconButton(
-                            onPressed: () {  },
+                            onPressed: selectGIF,
                              icon:const Icon(Icons.gif, color: Colors.grey,),
                         ),
                       ],

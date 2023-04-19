@@ -34,8 +34,20 @@ class DisplayTextImageGIF extends StatelessWidget {
                   bottomLeft: Radius.circular(16),
                 )
             ),
-            child: CachedNetworkImage(imageUrl: message),)
-   : Container(
+            child: CachedNetworkImage(imageUrl: message),):
+  type==MessageEnum.audio?  Container(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight:Radius.circular(16),
+            topLeft:Radius.circular(16),
+            bottomLeft: Radius.circular(16),
+          )
+      ),
+      child: IconButton(constraints:BoxConstraints(
+        minWidth: MediaQuery.of(context).size.width*0.30,
+      ),icon: Icon(Icons.play_arrow_rounded,),onPressed: (){},) ,
+  ): Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(

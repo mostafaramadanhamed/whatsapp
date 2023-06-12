@@ -11,6 +11,8 @@ import 'package:whatsapp/models/massege_model.dart';
 import 'package:whatsapp/models/user_model.dart';
 import 'package:whatsapp/utils/constant/app_assets.dart';
 
+import '../../../common/providers/message_reply_provider.dart';
+
 final chatControllerProvider = Provider((ref) {
   final chatRepository = ref.watch(chatRepositoryProvider);
   return ChatController(chatRepository: chatRepository, ref: ref);
@@ -37,8 +39,9 @@ class ChatController {
     BuildContext context,
     String text,
     String receiverUserId,
-  ) {
-    try {
+  ) {      final messageReply=ref.read(messageReplyProvider);
+
+  try {
       ref.read(userDataAuthProvider).whenData((UserModel? value) {
         log('$value value');
         return chatRepository.sendTextMessage(
@@ -47,12 +50,13 @@ class ChatController {
           receiverUserId: receiverUserId,
           senderUser: value ??
               UserModel(
-                  name: 'null',
-                  uid: 'null',
-                  profilePic: AppAssets.oTBProfileImage,
-                  isOnline: false,
-                  phoneNumber: 'null',
-                  groupId: []),
+                  name:value!.name,
+                  uid: value.uid,
+                  profilePic: value.profilePic,
+                  isOnline: value.isOnline,
+                  phoneNumber: value.phoneNumber,
+                  groupId: value.groupId),
+          messageReply:messageReply,
         );
       });
     } catch (e) {
@@ -64,12 +68,16 @@ class ChatController {
     String gifUrl,
     String receiverUserId,
   ) {
+    final messageReply=ref.read(messageReplyProvider);
+
     int gifUrlPartIndex=gifUrl.lastIndexOf('-')+1;
     String gifUrlPart=gifUrl.substring(gifUrlPartIndex);
         String newGifUrl='https://i.giphy.com/media/$gifUrlPart/200.gif';
       ref.read(userDataAuthProvider).whenData((UserModel? value) {
         log('$value value');
-        return chatRepository.sendGIFMessage(context: context, gifUrl: newGifUrl, receiverUserId: receiverUserId,
+        return chatRepository.sendGIFMessage(context: context, gifUrl: newGifUrl,
+          messageReply: messageReply,
+          receiverUserId: receiverUserId,
             senderUser: value ??
             UserModel(
                 name: 'null',
@@ -88,13 +96,17 @@ class ChatController {
     String receiverUserId,
       MessageEnum messageEnum,
   ) {
+    final messageReply=ref.read(messageReplyProvider);
+
     try {
+
       ref.read(userDataAuthProvider).whenData((UserModel? value) {
         log('$value value');
         return chatRepository.sendFileMessage(
           context: context,
           file: file,
           receiverUserId: receiverUserId,
+          messageReply: messageReply,
           senderUserData: value ??
               UserModel(
                   name: 'null',

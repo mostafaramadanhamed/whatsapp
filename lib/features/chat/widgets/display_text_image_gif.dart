@@ -50,8 +50,8 @@ class DisplayTextImageGIF extends StatelessWidget {
           )
       ),
       child: IconButton(constraints:BoxConstraints(
-        minWidth: MediaQuery.of(context).size.width*0.30,
-      ),icon: const Icon(Icons.play_arrow_rounded,),onPressed: ()async{
+        minWidth: MediaQuery.of(context).size.width*0.38,
+      ),icon:  Icon(isPlaying?Icons.pause:Icons.play_arrow_rounded,size: 28,),onPressed: ()async{
       if(isPlaying){
       await audioPlayer.pause();
       setState((){

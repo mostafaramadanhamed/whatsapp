@@ -21,6 +21,8 @@ class SenderMessageCard extends StatelessWidget {
   final MessageEnum repliedMessageType;
   @override
   Widget build(BuildContext context) {
+    final isReplying=repliedText.isNotEmpty;
+
     return SwipeTo(
       onRightSwipe: onRightSwipe,
       child: Align(
@@ -53,7 +55,26 @@ class SenderMessageCard extends StatelessWidget {
                     bottom: 4
                     ,
                   ),
-                  child:DisplayTextImageGIF(message: message, type: type),
+                  child:Column(
+
+                    children:[if(isReplying) ...[
+                      Text(userName ?? 'Me',style: const TextStyle(fontWeight: FontWeight.bold),),
+                      const SizedBox(height: 3,),
+                      ConstrainedBox(
+
+                        constraints: const BoxConstraints(minWidth: 90),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: backgroundColor.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: DisplayTextImageGIF(message: repliedText, type: repliedMessageType)),
+                      ),
+                      const SizedBox(height: 5,),
+                    ],
+                      DisplayTextImageGIF(message: message, type: type),
+                    ],
+                  ),
                 ),
                 Positioned(
                   bottom: 2,

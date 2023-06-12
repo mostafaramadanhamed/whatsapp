@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/common/providers/message_reply_provider.dart';
+import 'package:whatsapp/features/chat/widgets/display_text_image_gif.dart';
 import 'package:whatsapp/utils/constant/app_color.dart';
 
 class MessageReplyPreview extends ConsumerWidget {
@@ -40,9 +41,16 @@ class MessageReplyPreview extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 8,),
-            Text(
-              messageReply.message,
-              style: TextStyle(color: Colors.grey.shade300,),
+            Container(
+              constraints: BoxConstraints(maxHeight:size.height/4),
+              width: size.width*0.84,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.black26,
+              ),
+              child: DisplayTextImageGIF(message: messageReply.message, type: messageReply.messageEnum,
+
+              ),
             ),
           ],
         ),

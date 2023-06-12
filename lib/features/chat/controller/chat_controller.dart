@@ -60,6 +60,7 @@ class ChatController {
           messageReply:messageReply,
         );
       });
+      ref.read(messageReplyProvider.notifier).update((state) => null);
     } catch (e) {
       print(e);
     }
@@ -88,6 +89,8 @@ class ChatController {
                 phoneNumber: 'null',
                 groupId: []),);
       });
+    ref.read(messageReplyProvider.notifier).update((state) => null);
+
 
   }
 
@@ -120,6 +123,8 @@ class ChatController {
           messageEnum: messageEnum,
         );
       });
+      ref.read(messageReplyProvider.notifier).update((state) => null);
+
     } catch (e) {
       print(e);
     }

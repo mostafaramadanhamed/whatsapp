@@ -53,7 +53,7 @@ class MyMessageCard extends StatelessWidget {
                           left: 12,
                           right: 12,
                           top: 6,
-                          bottom: 10,
+                          bottom: 22,
                         )
                       : const EdgeInsets.only(
                           left: 4,
@@ -66,12 +66,16 @@ class MyMessageCard extends StatelessWidget {
                     children:[if(isReplying) ...[
                       Text(userName ?? 'Me',style: const TextStyle(fontWeight: FontWeight.bold),),
                     const SizedBox(height: 3,),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: backgroundColor.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(8)
-                        ),
-                          child: DisplayTextImageGIF(message: repliedText, type: repliedMessageType)),
+                      ConstrainedBox(
+
+                        constraints: BoxConstraints(minWidth: 90),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: backgroundColor.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8)
+                          ),
+                            child: DisplayTextImageGIF(message: repliedText, type: repliedMessageType)),
+                      ),
                       const SizedBox(height: 5,),
                     ],
                       DisplayTextImageGIF(message: message, type: type),

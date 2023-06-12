@@ -39,7 +39,8 @@ class DisplayTextImageGIF extends StatelessWidget {
                 )
             ),
             child: CachedNetworkImage(imageUrl: message),):
-  type==MessageEnum.audio?  Container(
+  type==MessageEnum.audio?  StatefulBuilder(
+    builder: ( context, setState) { return Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -48,24 +49,23 @@ class DisplayTextImageGIF extends StatelessWidget {
             bottomLeft: Radius.circular(16),
           )
       ),
-      child: StatefulBuilder(
-        builder: ( context, setState) { return IconButton(constraints:BoxConstraints(
-          minWidth: MediaQuery.of(context).size.width*0.30,
-        ),icon: const Icon(Icons.play_arrow_rounded,),onPressed: ()async{
-        if(isPlaying){
-        await audioPlayer.pause();
-        setState((){
-          isPlaying=false;
-        });
-        }else{
-        await audioPlayer.play(UrlSource(message));
-        setState((){
-          isPlaying=true;
-        });
+      child: IconButton(constraints:BoxConstraints(
+        minWidth: MediaQuery.of(context).size.width*0.30,
+      ),icon: const Icon(Icons.play_arrow_rounded,),onPressed: ()async{
+      if(isPlaying){
+      await audioPlayer.pause();
+      setState((){
+        isPlaying=false;
+      });
+      }else{
+      await audioPlayer.play(UrlSource(message));
+      setState((){
+        isPlaying=true;
+      });
 
-        }
-        });}
-      ) ,
+      }
+      }),
+    );}
   ): Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
         decoration: const BoxDecoration(

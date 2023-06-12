@@ -49,13 +49,14 @@ class ChatController {
           text: text,
           receiverUserId: receiverUserId,
           senderUser: value ??
+              // todo remove value
               UserModel(
-                  name:value!.name,
-                  uid: value.uid,
-                  profilePic: value.profilePic,
-                  isOnline: value.isOnline,
-                  phoneNumber: value.phoneNumber,
-                  groupId: value.groupId),
+                  name: 'null',
+                  uid: 'null',
+                  profilePic: AppAssets.oTBProfileImage,
+                  isOnline: false,
+                  phoneNumber: 'null',
+                  groupId: []),
           messageReply:messageReply,
         );
       });

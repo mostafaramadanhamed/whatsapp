@@ -46,9 +46,12 @@ class _ChatListState extends ConsumerState<ChatList> {
             var timeSent=DateFormat.Hm().format(messageData.timeSent);
             if (messageData.senderId==FirebaseAuth.instance.currentUser!.uid) {
               return MyMessageCard(
+                repliedText: messageData.repliedMessage,
+                repliedMessageType: messageData.repliedMessageType,
                 message: messageData.text,
                 date: timeSent,
                 type: messageData.type,
+                onLeftSwipe: () {  }, userName: messageData.repliedTo,
               );
             }
             return SenderMessageCard(

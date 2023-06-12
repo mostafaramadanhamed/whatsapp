@@ -7,7 +7,20 @@ class MyMessageCard extends StatelessWidget {
   final String message;
   final String date;
   final MessageEnum type;
-  const MyMessageCard({Key? key, required this.message, required this.date, required this.type}) : super(key: key);
+  final VoidCallback onLeftSwipe;
+  final String repliedText;
+  final String userName;
+  final MessageEnum repliedMessageType;
+  const MyMessageCard({
+    Key? key,
+    required this.message,
+    required this.date,
+    required this.type,
+    required this.onLeftSwipe,
+    required this.repliedText,
+    required this.userName,
+    required this.repliedMessageType,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +29,14 @@ class MyMessageCard extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width - 45,
-          minWidth: MediaQuery.of(context).size.width*0.30,
+          minWidth: MediaQuery.of(context).size.width * 0.30,
         ),
         child: Card(
           elevation: 1,
-          shape: const RoundedRectangleBorder(borderRadius:  BorderRadius.only(
-            topRight:Radius.circular(16),
-            topLeft:Radius.circular(16),
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16),
+            topLeft: Radius.circular(16),
             bottomLeft: Radius.circular(16),
           )),
           color: messageColor,
@@ -30,68 +44,73 @@ class MyMessageCard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding:type==MessageEnum.text?  EdgeInsets.only(
-                  left: 12,
-                  right: MediaQuery.of(context).size.width*0.22,
-                  top: 6,
-                  bottom: 10,
-                ): const EdgeInsets.only(
-                  left: 4,
-                  right: 4,
-                  top: 3,
-                  bottom: 4
-                  ,
-                ),
-                child:DisplayTextImageGIF(message: message, type: type),
+                padding: type == MessageEnum.text
+                    ? EdgeInsets.only(
+                        left: 12,
+                        right: MediaQuery.of(context).size.width * 0.22,
+                        top: 6,
+                        bottom: 10,
+                      )
+                    : const EdgeInsets.only(
+                        left: 4,
+                        right: 4,
+                        top: 3,
+                        bottom: 4,
+                      ),
+                child: DisplayTextImageGIF(message: message, type: type),
               ),
               Positioned(
                 bottom: 2,
                 right: 10,
-                child:type==MessageEnum.text?Row(
-                  children: [
-                    Text(
-                      date,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Colors.white60,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    const Icon(
-                      Icons.done_all,
-                      size: 18,
-                      color: Colors.white60,
-                    ),
-                  ],
-                ):Container(
-                  padding:const EdgeInsets.only(bottom: 7),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(.4),blurRadius:28,spreadRadius: 4, )
-                    ]
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        date,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.white,
+                child: type == MessageEnum.text
+                    ? Row(
+                        children: [
+                          Text(
+                            date,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Colors.white60,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          const Icon(
+                            Icons.done_all,
+                            size: 18,
+                            color: Colors.white60,
+                          ),
+                        ],
+                      )
+                    : Container(
+                        padding: const EdgeInsets.only(bottom: 7),
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.4),
+                            blurRadius: 28,
+                            spreadRadius: 4,
+                          )
+                        ]),
+                        child: Row(
+                          children: [
+                            Text(
+                              date,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Icon(
+                              Icons.done_all,
+                              size: 18,
+                              color: Colors.white,
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Icon(
-                        Icons.done_all,
-                        size: 18,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),

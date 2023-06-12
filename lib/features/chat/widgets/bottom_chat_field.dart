@@ -6,7 +6,9 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:whatsapp/common/enum/message_enum.dart';
+import 'package:whatsapp/common/providers/message_reply_provider.dart';
 import 'package:whatsapp/common/utils/utils.dart';
+import 'package:whatsapp/features/chat/widgets/message_reply_preview.dart';
 import '../../../utils/constant/app_color.dart';
 import '../controller/chat_controller.dart';
 
@@ -137,8 +139,11 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   }
   @override
   Widget build(BuildContext context) {
+    final messageReply=ref.watch(messageReplyProvider);
+    final isShowMessageReply= messageReply !=null;
     return Column(
       children: [
+        isShowMessageReply? const MessageReplyPreview():const SizedBox(),
         Row(
           children: [
             Expanded(

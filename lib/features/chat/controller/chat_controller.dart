@@ -129,4 +129,10 @@ class ChatController {
       print(e);
     }
   }
+  void setMessageSeen( BuildContext context,
+      String receiverUserId,
+      String messageId,
+      ){
+    chatRepository.setMessageSeen(context, receiverUserId, messageId);
+  }
 }

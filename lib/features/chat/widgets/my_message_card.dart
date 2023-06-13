@@ -12,6 +12,7 @@ class MyMessageCard extends StatelessWidget {
   final String repliedText;
   final String userName;
   final MessageEnum repliedMessageType;
+  final bool isSeen;
   const MyMessageCard({
     Key? key,
     required this.message,
@@ -20,11 +21,13 @@ class MyMessageCard extends StatelessWidget {
     required this.onLeftSwipe,
     required this.repliedText,
     required this.userName,
-    required this.repliedMessageType,
+    required this.repliedMessageType, required this.isSeen,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(userName);
+
     final isReplying=repliedText.isNotEmpty;
     return SwipeTo(
       onLeftSwipe: onLeftSwipe,
@@ -32,7 +35,7 @@ class MyMessageCard extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width - 45,
+            maxWidth: MediaQuery.of(context).size.width *.75,
             minWidth: MediaQuery.of(context).size.width * 0.30,
           ),
           child: Card(
@@ -49,7 +52,7 @@ class MyMessageCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: type == MessageEnum.text
-                      ? EdgeInsets.only(
+                      ? const EdgeInsets.only(
                           left: 12,
                           right: 12,
                           top: 6,
@@ -64,7 +67,7 @@ class MyMessageCard extends StatelessWidget {
                   child: Column(
 
                     children:[if(isReplying) ...[
-                      Text(userName ?? 'Me',style: const TextStyle(fontWeight: FontWeight.bold),),
+                      Text(userName==null?'me':userName,style: const TextStyle(fontWeight: FontWeight.bold),),
                     const SizedBox(height: 3,),
                       ConstrainedBox(
 
@@ -98,10 +101,10 @@ class MyMessageCard extends StatelessWidget {
                             const SizedBox(
                               width: 5,
                             ),
-                            const Icon(
-                              Icons.done_all,
+                             Icon(
+                                isSeen?Icons.done_all:Icons.done,
                               size: 18,
-                              color: Colors.white60,
+                              color: isSeen?Colors.blue:Colors.white60,
                             ),
                           ],
                         )

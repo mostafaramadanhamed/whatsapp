@@ -29,7 +29,7 @@ class SenderMessageCard extends StatelessWidget {
         alignment: Alignment.centerLeft,
         child: ConstrainedBox(
           constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width - 45,
+            maxWidth: MediaQuery.of(context).size.width *.75,
             minWidth: MediaQuery.of(context).size.width*0.30,
           ),
           child: Card(
@@ -37,15 +37,15 @@ class SenderMessageCard extends StatelessWidget {
             shape: const RoundedRectangleBorder(borderRadius:  BorderRadius.only(
               topRight:Radius.circular(16),
               topLeft:Radius.circular(16),
-              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
             )),          color: senderMessageColor,
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: Stack(
               children: [
                 Padding(
-                  padding: type==MessageEnum.text?  EdgeInsets.only(
-                    left: 12,
-                    right: MediaQuery.of(context).size.width*0.22,
+                  padding: type==MessageEnum.text?  const EdgeInsets.only(
+                    left: 5,
+                    right: 5,
                     top: 6,
                     bottom: 10,
                   ): const EdgeInsets.only(
@@ -58,7 +58,7 @@ class SenderMessageCard extends StatelessWidget {
                   child:Column(
 
                     children:[if(isReplying) ...[
-                      Text(userName ?? 'Me',style: const TextStyle(fontWeight: FontWeight.bold),),
+                      Text(userName,style: const TextStyle(fontWeight: FontWeight.bold),),
                       const SizedBox(height: 3,),
                       ConstrainedBox(
 

@@ -37,6 +37,7 @@ class MyMessageCard extends StatelessWidget {
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width *.75,
             minWidth: MediaQuery.of(context).size.width * 0.30,
+            minHeight: MediaQuery.of(context).size.width * 0.13,
           ),
           child: Card(
             elevation: 1,
@@ -47,7 +48,7 @@ class MyMessageCard extends StatelessWidget {
               bottomLeft: Radius.circular(16),
             )),
             color: messageColor,
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
             child: Stack(
               children: [
                 Padding(
@@ -67,11 +68,11 @@ class MyMessageCard extends StatelessWidget {
                   child: Column(
 
                     children:[if(isReplying) ...[
-                      Text(userName==null?'me':userName,style: const TextStyle(fontWeight: FontWeight.bold),),
+                      Text(userName,style: const TextStyle(fontWeight: FontWeight.bold),),
                     const SizedBox(height: 3,),
                       ConstrainedBox(
 
-                        constraints: BoxConstraints(minWidth: 90),
+                        constraints: const BoxConstraints(minWidth: 90),
                         child: Container(
                           decoration: BoxDecoration(
                             color: backgroundColor.withOpacity(0.2),

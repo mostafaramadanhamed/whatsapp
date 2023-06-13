@@ -74,9 +74,10 @@ class MyMessageCard extends StatelessWidget {
 
                         constraints: const BoxConstraints(minWidth: 90),
                         child: Container(
-                          decoration: BoxDecoration(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
                             color: backgroundColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(8)
+                            borderRadius: BorderRadius.circular(16)
                           ),
                             child: DisplayTextImageGIF(message: repliedText, type: repliedMessageType)),
                       ),

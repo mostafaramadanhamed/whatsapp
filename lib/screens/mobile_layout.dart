@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp/features/select_contact/screens/select_contact_screen.dart';
+import 'package:whatsapp/features/status/screens/status_contact_screen.dart';
 import '../features/auth/controller/auth_controller.dart';
 import '../utils/constant/app_color.dart';
 import '../features/chat/widgets/contact_list.dart';
@@ -12,10 +13,12 @@ class MobileLayoutScreen extends ConsumerStatefulWidget {
   ConsumerState<MobileLayoutScreen> createState() => _MobileLayoutScreenState();
 }
 
-class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with WidgetsBindingObserver{
+class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with WidgetsBindingObserver,TickerProviderStateMixin{
+  late TabController tabController;
   @override
   void initState() {
     super.initState();
+    tabController=TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addObserver(this);
   }
   @override
@@ -64,15 +67,16 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
               onPressed: () {},
             ),
           ],
-          bottom: const TabBar(
+          bottom:  TabBar(
+            controller: tabController,
             indicatorColor: tabColor,
             indicatorWeight: 4,
             labelColor: tabColor,
             unselectedLabelColor: Colors.grey,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
-            tabs: [
+            tabs: const[
               Tab(
                 text: 'CHATS',
               ),
@@ -85,7 +89,9 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
             ],
           ),
         ),
-        body: const ContactsList(),
+        body: TabBarView(
+          controller: tabController,
+          children:const [ ContactsList(), StatusContactScreen(),Text('Calls')], ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, ContactScreen.routeName);

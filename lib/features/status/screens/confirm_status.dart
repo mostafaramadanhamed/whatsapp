@@ -18,7 +18,7 @@ class ConfirmStatusScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
-        child: AspectRatio(aspectRatio: 16/9,child: Image.file(file),),
+        child: AspectRatio(aspectRatio: 9/16,child: Image.file(file),),
 
 
       ),

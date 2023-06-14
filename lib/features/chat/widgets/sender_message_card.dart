@@ -54,14 +54,12 @@ class SenderMessageCard extends StatelessWidget {
                     left: 4,
                     right: 4,
                     top: 3,
-                    bottom: 4
-                    ,
+                    bottom: 4,
                   ),
                   child:Column(
 
                     children:[if(isReplying) ...[
-                      Text(userName,style: const TextStyle(fontWeight: FontWeight.bold),),
-                      const SizedBox(height: 3,),
+
                       ConstrainedBox(
 
                         constraints: const BoxConstraints(minWidth: 90,),
@@ -69,9 +67,19 @@ class SenderMessageCard extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
                                 color: blackColor.withOpacity(0.4),
-                                borderRadius: BorderRadius.circular(16)
+                                borderRadius: const BorderRadius.only(
+                                  topRight:Radius.circular(16),
+                                  topLeft:Radius.circular(16),
+                                  bottomRight: Radius.circular(16),     )
                             ),
-                            child: DisplayTextImageGIF(message: repliedText, type: repliedMessageType)),
+                            child:  Column(
+                              children: [
+
+                                Text('$userName :',style:  TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade300),),
+                                const SizedBox(height: 5,),
+                                DisplayTextImageGIF(message: repliedText, type: repliedMessageType),
+                              ],
+                            )),
                       ),
                       const SizedBox(height: 5,),
                     ],
@@ -80,7 +88,7 @@ class SenderMessageCard extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 2,
+                  bottom: 1.6,
                   right: 10,
                    child:type==MessageEnum.text?Text(
                    date,

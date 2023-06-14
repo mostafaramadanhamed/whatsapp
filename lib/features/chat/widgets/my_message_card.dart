@@ -68,19 +68,31 @@ class MyMessageCard extends StatelessWidget {
                   child: Column(
 
                     children:[if(isReplying) ...[
-                      Text(userName,style: const TextStyle(fontWeight: FontWeight.bold),),
-                    const SizedBox(height: 3,),
-                      ConstrainedBox(
+                     Column(
+                       children: [
+                         ConstrainedBox(
 
-                        constraints: const BoxConstraints(minWidth: 90),
-                        child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                            color: backgroundColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(16)
-                          ),
-                            child: DisplayTextImageGIF(message: repliedText, type: repliedMessageType)),
-                      ),
+                           constraints: const BoxConstraints(minWidth: 90),
+                           child: Container(
+                               padding: const EdgeInsets.all(8),
+                               decoration: BoxDecoration(
+                                   color: backgroundColor.withOpacity(0.2),
+                                 borderRadius:  const BorderRadius.only(
+                                     topRight:Radius.circular(16),
+                                     topLeft:Radius.circular(16),
+                                     bottomLeft: Radius.circular(16),     )
+                               ),
+                               child: Column(
+                                 children: [
+
+                                   Text('$userName :',style:  TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade300),),
+                                   const SizedBox(height: 5,),
+                                   DisplayTextImageGIF(message: repliedText, type: repliedMessageType),
+                                 ],
+                               )),
+                         ),
+                       ],
+                     ),
                       const SizedBox(height: 5,),
                     ],
                       DisplayTextImageGIF(message: message, type: type),

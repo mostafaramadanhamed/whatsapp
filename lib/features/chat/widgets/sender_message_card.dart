@@ -30,7 +30,7 @@ class SenderMessageCard extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width *.75,
-            minWidth: MediaQuery.of(context).size.width*0.30,
+            minWidth: MediaQuery.of(context).size.width*0.33,
             minHeight: MediaQuery.of(context).size.width * 0.13,
 
           ),
@@ -46,7 +46,7 @@ class SenderMessageCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: type==MessageEnum.text?  const EdgeInsets.only(
-                    left: 5,
+                    left: 7,
                     right: 5,
                     top: 6,
                     bottom: 10,
@@ -93,7 +93,7 @@ class SenderMessageCard extends StatelessWidget {
                    child:type==MessageEnum.text?Text(
                    date,
                    style: const TextStyle(
-                     fontSize: 13,
+                     fontSize: 11,
                      color: Colors.white60,
                    ),
                 ):
@@ -107,7 +107,7 @@ class SenderMessageCard extends StatelessWidget {
           child: Text(
             date,
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 11,
               color: Colors.white,
             ),
           ),

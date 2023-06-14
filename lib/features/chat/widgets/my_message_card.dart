@@ -36,7 +36,7 @@ class MyMessageCard extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width *.75,
-            minWidth: MediaQuery.of(context).size.width * 0.30,
+            minWidth: MediaQuery.of(context).size.width * 0.35,
             minHeight: MediaQuery.of(context).size.width * 0.13,
           ),
           child: Card(
@@ -108,7 +108,7 @@ class MyMessageCard extends StatelessWidget {
                             Text(
                               date,
                               style: const TextStyle(
-                                fontSize: 13,
+                                fontSize: 12,
                                 color: Colors.white60,
                               ),
                             ),
@@ -136,17 +136,17 @@ class MyMessageCard extends StatelessWidget {
                               Text(
                                 date,
                                 style: const TextStyle(
-                                  fontSize: 13,
+                                  fontSize: 11,
                                   color: Colors.white,
                                 ),
                               ),
                               const SizedBox(
                                 width: 5,
                               ),
-                              const Icon(
-                                Icons.done_all,
+                              Icon(
+                                isSeen?Icons.done_all:Icons.done,
                                 size: 18,
-                                color: Colors.white,
+                                color: isSeen?Colors.blue:Colors.white,
                               ),
                             ],
                           ),

@@ -76,6 +76,11 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
             indicatorWeight: 4,
             labelColor: tabColor,
             unselectedLabelColor: Colors.grey,
+            onTap: (val){
+              setState((){
+                tabController.index=val;
+              });
+            },
             labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -110,10 +115,13 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
            }
           },
           backgroundColor: tabColor,
-          child: const Icon(
-            Icons.comment,
-            color: Colors.white,
-          ),
+          child: tabController.index==0?
+          const Icon(
+             Icons.comment,            color: Colors.white,
+          ):tabController.index==1?
+          const Icon(Icons.camera_alt_rounded,color: Colors.white,):
+          const Icon(Icons.call,color: Colors.white,),
+
         ),
       ),
     );

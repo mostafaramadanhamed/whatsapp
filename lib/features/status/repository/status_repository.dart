@@ -6,6 +6,7 @@ class StatusRepository{
 final FirebaseFirestore firestore;
 final FirebaseAuth auth;
 final ProviderRef ref;
-  StatusRepository(this.firestore, this.auth, this.ref);
+  StatusRepository({required this.firestore,required this.auth,required this.ref,});
+  
 
 }

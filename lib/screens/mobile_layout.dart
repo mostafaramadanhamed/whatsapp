@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/features/select_contact/screens/select_contact_screen.dart';
+import 'package:whatsapp/features/status/screens/confirm_status.dart';
 import 'package:whatsapp/features/status/screens/status_contact_screen.dart';
 import '../features/auth/controller/auth_controller.dart';
 import '../utils/constant/app_color.dart';
@@ -93,8 +96,18 @@ class _MobileLayoutScreenState extends ConsumerState<MobileLayoutScreen> with Wi
           controller: tabController,
           children:const [ ContactsList(), StatusContactScreen(),Text('Calls')], ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, ContactScreen.routeName);
+          onPressed: () async{
+           if(tabController.index==0){
+             Navigator.pushNamed(context, ContactScreen.routeName);
+           } else if(tabController.index==1){
+             File?pickedImage=await pickImageFromGallery(context);
+             if(pickedImage != null){
+               Navigator.pushNamed(context, ConfirmStatusScreen.routeName,arguments: pickedImage);
+
+             }
+           }else{
+             Navigator.pushNamed(context, ContactScreen.routeName);
+           }
           },
           backgroundColor: tabColor,
           child: const Icon(

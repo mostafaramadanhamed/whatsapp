@@ -11,7 +11,7 @@ import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/models/status_model.dart';
 import 'package:whatsapp/models/user_model.dart';
 
-final statusProvider=Provider((ref) => StatusRepository(firestore: FirebaseFirestore.instance, auth: FirebaseAuth.instance, ref: ref,),);
+final statusRepositoryProvider=Provider((ref) => StatusRepository(firestore: FirebaseFirestore.instance, auth: FirebaseAuth.instance, ref: ref,),);
 
 class StatusRepository {
   final FirebaseFirestore firestore;

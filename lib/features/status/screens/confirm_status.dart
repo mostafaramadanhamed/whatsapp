@@ -17,6 +17,7 @@ class ConfirmStatusScreen extends ConsumerWidget {
 
  void addStatus(WidgetRef ref,BuildContext context,){
    ref.read(statusControllerProvider).addStatus(file, context);
+   debugPrint(file.path);
    Navigator.pop(context);
 
  }
@@ -29,7 +30,7 @@ class ConfirmStatusScreen extends ConsumerWidget {
 
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>addStatus(ref, context),
+        onPressed: ()=>addStatus(ref,context),
         backgroundColor: tabColor,
         child: const Icon(
           Icons.done,

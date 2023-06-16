@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/features/auth/controller/auth_controller.dart';
 import 'package:whatsapp/features/status/repository/status_repository.dart';
 import 'package:whatsapp/models/status_model.dart';
 import 'package:whatsapp/models/user_model.dart';
+import 'package:whatsapp/utils/constant/app_assets.dart';
 
 final statusControllerProvider=Provider((ref) {
 final statusRepository=ref.read(statusRepositoryProvider);
@@ -24,13 +27,23 @@ class StatusController{
     required this.ref,
   });
   void addStatus(File file,BuildContext context){
+    debugPrint(file.path);
     ref.watch(userDataAuthProvider).whenData((UserModel  ?value) {
-      statusRepository.updateStatus(userName: value!.name,
-        profilePic: value.profilePic, phoneNumber: value.phoneNumber,
-        statusImage: file, context: context,
-      );
+      if (value != null) {
+        statusRepository.uploadStatus(userName: value.name,
+          profilePic: value.profilePic,
+          phoneNumber: value.phoneNumber,
+          statusImage: file,
+          context: context,);
+      }
+      else {
+        statusRepository.uploadStatus(userName: 'Null',
+          profilePic: AppAssets.oTBProfileImage,
+          phoneNumber: '+201097374644',
+          statusImage: file,
+          context: context,);
+      }
     });
-
   }
 
   Future<List<StatusModel>>getStatus(BuildContext context)async{

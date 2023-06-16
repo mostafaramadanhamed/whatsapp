@@ -113,11 +113,11 @@ class ChatController {
           messageReply: messageReply,
           senderUserData: value ??
               UserModel(
-                  name: 'null',
-                  uid: 'null',
+                  name: 'Me',
+                  uid: 'uIIId',
                   profilePic: AppAssets.oTBProfileImage,
                   isOnline: false,
-                  phoneNumber: 'null',
+                  phoneNumber: '0000',
                   groupId: []),
           ref: ref,
           messageEnum: messageEnum,

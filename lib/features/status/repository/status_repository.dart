@@ -30,7 +30,7 @@ class StatusRepository {
     required this.ref,
   });
 
-  void updateStatus({
+  void uploadStatus({
     required String userName,
     required String profilePic,
     required String phoneNumber,
@@ -42,7 +42,7 @@ class StatusRepository {
       String uid = auth.currentUser!.uid;
       String imageUrl = await ref
           .read(commonFirebaseStorageRepositoryProvider)
-          .storeFileToFirebase('/status/$statusId', statusImage);
+          .storeFileToFirebase('/status/$statusId/$uid', statusImage);
       List<Contact> contacts = [];
       if (await FlutterContacts.requestPermission()) {
         contacts = await FlutterContacts.getContacts(
@@ -65,41 +65,41 @@ class StatusRepository {
           var userData = UserModel.fromMap(userDataFirebase.docs[0].data());
           uidWhoCanSee.add(userData.uid);
         }
-        List<String> statusImageUrls = [];
-        var statusSnapShot = await firestore
-            .collection('status')
-            .where(
-              'uid',
-              isEqualTo: auth.currentUser!.uid,
-            )
-            .get();
-        if (statusSnapShot.docs.isNotEmpty) {
-          StatusModel status =
-              StatusModel.fromMap(statusSnapShot.docs[0].data());
-          statusImageUrls = status.photoUrl;
-          statusImageUrls.add(imageUrl);
-          await firestore
-              .collection('status')
-              .doc(statusSnapShot.docs[0].id)
-              .update({
-            'photoUrl': statusImageUrls,
-          });
-          return;
-        } else {
-          statusImageUrls = [imageUrl];
-        }
-        StatusModel status = StatusModel(
-          uid: uid,
-          userName: userName,
-          profilePic: profilePic,
-          phoneNumber: phoneNumber,
-          statusId: statusId,
-          photoUrl: statusImageUrls,
-          createdAt: DateTime.now(),
-          whoCanSee: uidWhoCanSee,
-        );
-        await firestore.collection('status').doc().set(status.toMap());
       }
+      List<String> statusImageUrls = [];
+      var statusSnapShot = await firestore
+          .collection('status')
+          .where(
+        'uid',
+        isEqualTo: auth.currentUser!.uid,
+      )
+          .get();
+      if (statusSnapShot.docs.isNotEmpty) {
+        StatusModel status =
+        StatusModel.fromMap(statusSnapShot.docs[0].data());
+        statusImageUrls = status.photoUrl;
+        statusImageUrls.add(imageUrl);
+        await firestore
+            .collection('status')
+            .doc(statusSnapShot.docs[0].id)
+            .update({
+          'photoUrl': statusImageUrls,
+        });
+        return;
+      } else {
+        statusImageUrls = [imageUrl];
+      }
+      StatusModel status = StatusModel(
+        uid: uid,
+        userName: userName,
+        profilePic: profilePic,
+        phoneNumber: phoneNumber,
+        statusId: statusId,
+        photoUrl: statusImageUrls,
+        createdAt: DateTime.now(),
+        whoCanSee: uidWhoCanSee,
+      );
+      await firestore.collection('status').doc().set(status.toMap());
     } catch (ex) {
       showSnackBar(context: context, content: ex.toString());
     }

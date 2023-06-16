@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +12,13 @@ import 'package:whatsapp/common/utils/utils.dart';
 import 'package:whatsapp/models/status_model.dart';
 import 'package:whatsapp/models/user_model.dart';
 
-final statusRepositoryProvider=Provider((ref) => StatusRepository(firestore: FirebaseFirestore.instance, auth: FirebaseAuth.instance, ref: ref,),);
+final statusRepositoryProvider = Provider(
+  (ref) => StatusRepository(
+    firestore: FirebaseFirestore.instance,
+    auth: FirebaseAuth.instance,
+    ref: ref,
+  ),
+);
 
 class StatusRepository {
   final FirebaseFirestore firestore;
@@ -88,14 +95,53 @@ class StatusRepository {
           phoneNumber: phoneNumber,
           statusId: statusId,
           photoUrl: statusImageUrls,
-          createdAt:DateTime.now() ,
-          whoCanSee:uidWhoCanSee,
+          createdAt: DateTime.now(),
+          whoCanSee: uidWhoCanSee,
         );
         await firestore.collection('status').doc().set(status.toMap());
-
       }
     } catch (ex) {
       showSnackBar(context: context, content: ex.toString());
     }
+  }
+
+  Future<List<StatusModel>> getStatus(BuildContext context) async {
+    List<StatusModel> statusData = [];
+    try {
+      List<Contact> contacts = [];
+      if (await FlutterContacts.requestPermission()) {
+        contacts = await FlutterContacts.getContacts(withProperties: true);
+      }
+      for (int index = 0; index < contacts.length; index++) {
+        var statusSnapShot = await firestore
+            .collection('status')
+            .where(
+              'phoneNumber',
+              isEqualTo: contacts[index].phones[0].number.replaceAll(
+                    ' ',
+                    '',
+                  ),
+            )
+            .where(
+              'createdAt',
+              isGreaterThan: DateTime.now()
+                  .subtract(const Duration(hours: 24))
+                  .millisecondsSinceEpoch,
+            )
+            .get();
+        for(var tempData in statusSnapShot.docs){
+          StatusModel tempStatus=StatusModel.fromMap(tempData.data());
+          if(tempStatus.whoCanSee.contains(auth.currentUser!.uid)){
+            statusData.add(tempStatus);
+          }
+        }
+      }
+    } catch (ex) {
+      if (kDebugMode) {
+        print(ex);
+      }
+      showSnackBar(context: context, content: ex.toString());
+    }
+    return statusData;
   }
 }

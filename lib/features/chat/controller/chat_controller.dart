@@ -36,51 +36,51 @@ class ChatController {
   }
 
   void sendTextMessage(
-    BuildContext context,
-    String text,
-    String receiverUserId,
-  ) {      final messageReply=ref.read(messageReplyProvider);
+      BuildContext context,
+      String text,
+      String receiverUserId,
+      ) {      final messageReply=ref.read(messageReplyProvider);
 
   try {
-      ref.read(userDataAuthProvider).whenData((UserModel? value) {
-        log('$value value');
-        return chatRepository.sendTextMessage(
-          context: context,
-          text: text,
-          receiverUserId: receiverUserId,
-          senderUser: value ??
-              // todo remove value
-              UserModel(
-                  name: 'null',
-                  uid: 'null',
-                  profilePic: AppAssets.oTBProfileImage,
-                  isOnline: false,
-                  phoneNumber: 'null',
-                  groupId: []),
-          messageReply:messageReply,
-        );
-      });
-      ref.read(messageReplyProvider.notifier).update((state) => null);
-    } catch (e) {
-      print(e);
-    }
+    ref.read(userDataAuthProvider).whenData((UserModel? value) {
+      log('$value value');
+      return chatRepository.sendTextMessage(
+        context: context,
+        text: text,
+        receiverUserId: receiverUserId,
+        senderUser: value ??
+            // todo remove value
+            UserModel(
+                name: 'null',
+                uid: 'null',
+                profilePic: AppAssets.oTBProfileImage,
+                isOnline: false,
+                phoneNumber: 'null',
+                groupId: []),
+        messageReply:messageReply,
+      );
+    });
+    ref.read(messageReplyProvider.notifier).update((state) => null);
+  } catch (e) {
+    print(e);
+  }
   }
   void sendGIFMessage(
-    BuildContext context,
-    String gifUrl,
-    String receiverUserId,
-  ) {
+      BuildContext context,
+      String gifUrl,
+      String receiverUserId,
+      ) {
     final messageReply=ref.read(messageReplyProvider);
 
     int gifUrlPartIndex=gifUrl.lastIndexOf('-')+1;
     String gifUrlPart=gifUrl.substring(gifUrlPartIndex);
-        String newGifUrl='https://i.giphy.com/media/$gifUrlPart/200.gif';
-      ref.read(userDataAuthProvider).whenData((UserModel? value) {
-        log('$value value');
-        return chatRepository.sendGIFMessage(context: context, gifUrl: newGifUrl,
-          messageReply: messageReply,
-          receiverUserId: receiverUserId,
-            senderUser: value ??
+    String newGifUrl='https://i.giphy.com/media/$gifUrlPart/200.gif';
+    ref.read(userDataAuthProvider).whenData((UserModel? value) {
+      log('$value value');
+      return chatRepository.sendGIFMessage(context: context, gifUrl: newGifUrl,
+        messageReply: messageReply,
+        receiverUserId: receiverUserId,
+        senderUser: value ??
             UserModel(
                 name: 'null',
                 uid: 'null',
@@ -88,18 +88,18 @@ class ChatController {
                 isOnline: false,
                 phoneNumber: 'null',
                 groupId: []),);
-      });
+    });
     ref.read(messageReplyProvider.notifier).update((state) => null);
 
 
   }
 
   void sendFileMessage(
-    BuildContext context,
-    File file,
-    String receiverUserId,
+      BuildContext context,
+      File file,
+      String receiverUserId,
       MessageEnum messageEnum,
-  ) {
+      ) {
     final messageReply=ref.read(messageReplyProvider);
 
     try {

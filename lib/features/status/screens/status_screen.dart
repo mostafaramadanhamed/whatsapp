@@ -17,18 +17,20 @@ class StatusScreen extends StatefulWidget {
 class _StatusScreenState extends State<StatusScreen> {
   StoryController controller=StoryController();
   List<StoryItem>storyItems=[];
- void initStoryPage(){
-    for(int i=0;i<widget.status.photoUrl.length;i++){
 
-      storyItems.add(
-        StoryItem.pageImage(url: widget.status.photoUrl[i], controller: controller),
-      );
-    }
-  }
   @override
   void initState() {
     super.initState();
     initStoryPage();
+  }
+  void initStoryPage(){
+    for(int i=0;i<widget.status.photoUrl.length;i++){
+
+      storyItems.add(
+        StoryItem.pageImage(url: widget.status.photoUrl[i],
+            controller: controller,),
+      );
+    }
   }
   @override
   Widget build(BuildContext context) {

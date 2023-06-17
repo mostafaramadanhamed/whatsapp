@@ -96,12 +96,13 @@ class StatusRepository {
         phoneNumber: phoneNumber,
         statusId: statusId,
         photoUrl: statusImageUrls,
-        createdAt: DateTime.now(),
+        createdAt: DateTime.now() ,
         whoCanSee: uidWhoCanSee,
       );
       await firestore.collection('status').doc().set(status.toMap());
     } catch (ex) {
-      showSnackBar(context: context, content: ex.toString());
+      //showSnackBar(context: context, content: ex.toString());
+      print(ex);
     }
   }
 
@@ -138,7 +139,7 @@ class StatusRepository {
       }
     } catch (ex) {
       if (kDebugMode) {
-        print(ex);
+        print('$ex in get');
       }
       showSnackBar(context: context, content: ex.toString());
     }

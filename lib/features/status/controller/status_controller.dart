@@ -37,9 +37,9 @@ class StatusController{
           context: context,);
       }
       else {
-        statusRepository.uploadStatus(userName: 'Null',
+        statusRepository.uploadStatus(userName: 'mo',
           profilePic: AppAssets.oTBProfileImage,
-          phoneNumber: '+201097374644',
+          phoneNumber: '+201558414484',
           statusImage: file,
           context: context,);
       }

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class StatusModel{
   final String uid;
   final String userName;
@@ -41,7 +43,8 @@ class StatusModel{
       phoneNumber: map['phoneNumber'] ??'',
       statusId: map['statusId'] ??'',
       photoUrl:List<String>.from( map['photoUrl'] ),
-      createdAt: DateTime.fromMicrosecondsSinceEpoch(map['createdAt']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'],),
+      //DateTime.fromMillisecondsSinceEpoch(map['createdAt'])
       whoCanSee:List<String>.from( map['whoCanSee']),
     );
   }

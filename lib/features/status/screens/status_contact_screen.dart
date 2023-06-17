@@ -43,13 +43,13 @@ class StatusContactScreen extends ConsumerWidget {
                         ),
                         radius: 30,
                       ),
-                      trailing: Text(
-                        DateFormat('hh:mm a').format(statusData.createdAt),
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 13,
-                        ),
-                      ),
+                      // trailing: Text(
+                      //   DateFormat('hh:mm a').format(statusData.createdAt),
+                      //   style: const TextStyle(
+                      //     color: Colors.grey,
+                      //     fontSize: 13,
+                      //   ),
+                      // ),
                     ),
                   ),
                 ),

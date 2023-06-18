@@ -28,8 +28,8 @@ and more (inProgress)
 
 
 Packages used:
-1- firebase_auth: ^4.2.9
-2- firebase_storage: ^11.0.14
+1- firebase_auth 
+2- firebase_storage
 3- cloud_firestore: ^4.4.3
 4- firebase_core: ^2.7.0
 5- country_picker: ^2.0.19

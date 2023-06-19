@@ -15,14 +15,10 @@ and more (inProgress)
 
 ## video
 
-<p align="center">
-
-<video autoplay>
+<video width="320" height="240" controls>
   <source src="https://github.com/mostafaramadanhamed/whatsapp/blob/master/video1666875229.mp4" type="video/mp4">
-  <source src="movie.ogg" type="video/ogg">
+  Your browser does not support the video tag.
 </video>
-</p>
-
 
 ## tech
 **Server**: Firebase Auth, Firebase Storage, Firebase Firestore
@@ -32,8 +28,8 @@ and more (inProgress)
 
 
 Packages used:
-1- firebase_auth: ^4.2.9
-2- firebase_storage: ^11.0.14
+1- firebase_auth 
+2- firebase_storage
 3- cloud_firestore: ^4.4.3
 4- firebase_core: ^2.7.0
 5- country_picker: ^2.0.19

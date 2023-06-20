@@ -4,7 +4,7 @@ WhatsApp Cloner
 
 
 <p align="center">
-  <img width="600" src="https://github.com/mostafaramadanhamed/whatsapp/blob/master/mp4.gif" alt="Youtube Tutorial Image">
+  <img width="600" src="https://github.com/mostafaramadanhamed/whatsapp/blob/master/mp4.gif">
 </p>
 
 

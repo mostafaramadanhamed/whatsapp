@@ -1,6 +1,6 @@
-## whatsapp
+# whatsapp
 
-WhatsApp Cloner
+## WhatsApp Cloner
 
 
 <p align="center">
@@ -8,7 +8,7 @@ WhatsApp Cloner
 </p>
 
 
-made with Flutter and Firebase and RiverPod as state management
+##### made with Flutter and Firebase and RiverPod as state management
 ## Features
 - Phone Number Authentication
 - Account name and profile pic 
